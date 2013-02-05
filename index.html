@@ -1,0 +1,316 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Component by timoxley</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Component</h1>
+        <p>component(1) - CLI tool for creating, building, and installing components</p>
+
+        <p class="view"><a href="https://github.com/timoxley/component">View the Project on GitHub <small>timoxley/component</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/timoxley/component/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/timoxley/component/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/timoxley/component">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><img src="http://i49.tinypic.com/e7nj9v.png" alt="web component logo"></p>
+
+<p>Component package manager for building a better web.</p>
+
+<h2>Installation</h2>
+
+<p>With <a href="http://nodejs.org">node</a> previously installed:</p>
+
+<pre><code> $ npm install -g component
+</code></pre>
+
+<p>With node binary on OSX:</p>
+
+<pre><code> $ (cd /usr/local &amp;&amp; \
+    curl -L# http://nodejs.org/dist/v0.8.15/node-v0.8.15-darwin-x86.tar.gz \
+    | tar -zx --strip 1) \
+   &amp;&amp; npm install -g component \
+   &amp;&amp; printf "installed component(1) %s\n" $(component --version)
+</code></pre>
+
+<p>NOTE: tested with node 0.8.x</p>
+
+<h2>Features</h2>
+
+<ul>
+<li>write modular commonjs components</li>
+<li>write components that include their own styles, images, scripts, or any combo</li>
+<li>no registry publishing or account required, uses github repositories</li>
+<li>extensible sub-commands via <code>component-YOURCOMMAND</code> git-style</li>
+<li>component skeleton creation command</li>
+<li>installs dependencies from the command-line or ./component.json</li>
+<li>avoid name squatting through github's naming conventions</li>
+<li>build your components with <code>--standalone</code> to share them with non-component(1) users</li>
+<li>discovery of useful packages is simple with a robust search</li>
+<li>view documentation from the command line</li>
+<li>simple private registry set up (all you need is a file server)</li>
+<li>very fast installs (50 components in ~4.5s)</li>
+<li>very fast search (~300ms)</li>
+</ul><h2>Links</h2>
+
+<ul>
+<li>
+<a href="https://github.com/component/component/wiki/Components">List</a> of all available components</li>
+<li><a href="https://github.com/component/component/wiki">Wiki</a></li>
+<li><a href="https://groups.google.com/group/componentjs">Mailing List</a></li>
+<li><a href="https://plus.google.com/u/0/communities/109771441994395167277">Google+ Community</a></li>
+<li>component <a href="https://github.com/component/component/wiki/Spec">"spec"</a>
+</li>
+<li>join <code>#components</code> on freenode</li>
+<li>follow <a href="http://twitter.com/component_js">@component_js</a> on twitter</li>
+<li>
+<a href="https://github.com/component/component/wiki/Building-better-components">Building better components</a> tips</li>
+<li><a href="https://github.com/component/component/wiki/F.A.Q">F.A.Q</a></li>
+</ul><h2>Screencasts</h2>
+
+<ul>
+<li><a href="https://vimeo.com/53730178">Creating web components</a></li>
+<li><a href="https://vimeo.com/48054442">App integration introduction</a></li>
+</ul><h2>Articles</h2>
+
+<ul>
+<li>building a <a href="http://tjholowaychuk.com/post/37832588021/building-a-date-picker-component">date picker component</a>
+</li>
+<li>original <a href="http://tjholowaychuk.com/post/27984551477/components">component blog post</a>
+</li>
+</ul><h2>Usage</h2>
+
+<p>Via <code>--help</code>:</p>
+
+<pre><code>
+Usage: component &lt;command&gt; [options]
+
+Options:
+
+  -h, --help     output usage information
+  -V, --version  output the version number
+
+Commands:
+
+  install [name ...]      install one or more components
+  create [dir]            create a component skeleton
+  search [query]          search with the given query
+  convert &lt;file ...&gt;      convert html files to js modules
+  info &lt;name&gt; [prop]      output json component information
+  changes &lt;name&gt;          output changelog contents
+  docs &lt;name&gt;             output readme contents
+  wiki                    open the components list wiki page
+  build                   build the component
+  ls                      list installed components
+
+</code></pre>
+
+<h2>Installing packages</h2>
+
+<p>To install one or more packages, simply pass their github
+  repo names as arguments to <code>component install</code>. Dependencies
+  are resolved and the component contents are downloaded into
+  <code>./components</code> by default. View <code>component help install</code> for details.</p>
+
+<pre><code>$ component install component/tip
+
+   install : component/tip@master
+       dep : component/emitter@master
+   install : component/emitter@master
+       dep : component/jquery@master
+   install : component/jquery@master
+     fetch : component/tip:index.js
+     fetch : component/tip:tip.css
+     fetch : component/tip:tip.html
+     fetch : component/emitter:index.js
+     fetch : component/jquery:index.js
+  complete : component/emitter
+  complete : component/jquery
+  complete : component/tip
+</code></pre>
+
+<h2>Searching for components</h2>
+
+<p>By adding your component to the <a href="https://github.com/component/component/wiki/Components">Components List</a> wiki page it will become automatically available to <code>component-search(1)</code>. When invoked with no query all components are displayed, otherwise a filtered search, ordered by the number of github "stars":</p>
+
+<pre><code>$ component search ui
+
+  component/dialog
+  url: https://github.com/component/dialog
+  desc: Dialog component
+  ★ 12
+
+  component/notification
+  url: https://github.com/component/notification
+  desc: Notification component
+  ★ 10
+
+  component/overlay
+  url: https://github.com/component/overlay
+  desc: Overlay component
+  ★ 7
+
+</code></pre>
+
+<h2>Using Github as a registry</h2>
+
+<p>By using GitHub as the registry, <code>component(1)</code> is automatically
+  available to you without further explicit knowledge or work
+  creating a registry account etc.</p>
+
+<p>A nice side-effect of this namespaced world is that dependencies
+  are explicit and self-documenting. No longer do you need to query
+  the registry for a "repo" property that may not exist, it's simply
+  built in to the package name, for example <a href="https://github.com/visionmedia/page.js">"visionmedia/page.js"</a> rather
+  than the unclear "page".</p>
+
+<p>Another benefit of this is that there are zero name collisions, for example
+  you may use "component/tip" for a dependency of "foo", and "someuser/tip"
+  as a dependency of "bar", providing <code>require('tip')</code> in each. This prevents
+  obscure or irrelevant naming such as "progress", "progress2", "progress-bar",
+  "progress-component" found in npm.</p>
+
+<h2>Creating a component</h2>
+
+<p>The <code>component-create(1)</code> command can create a component
+  project skeleton for you by filling out the prompts. Once
+  this repo is published to Github, you're all done!</p>
+
+<pre><code>name: popover
+description: Popover UI component
+does this component have js? yes
+does this component have css? yes
+does this component have html? yes
+
+     create : popover
+     create : popover/index.js
+     create : popover/template.html
+     create : popover/popover.css
+     create : popover/Makefile
+     create : popover/Readme.md
+     create : popover/.gitignore
+     create : popover/component.json
+
+</code></pre>
+
+<p>A <code>Makefile</code> is created for you in order to create a build of the component,
+  complete with installed dependencies simply execute <code>make</code>.</p>
+
+<h2>Templates</h2>
+
+<p>Because <code>component(1)</code> has no notion of a "template", even simple HTML files
+  should be converted to a <code>require()</code>-able module. It is recommended that public
+  components shared within the community use regular HTML templates, and regular
+  CSS stylesheets to maximize contributions, however if you wish to use alternate
+  technologies just make sure to compile them before publishing them to Github.</p>
+
+<p>For the recommended use-case of regular HTML, the <code>component-convert(1)</code> command
+  will translate a regular HTML file to its <code>require()</code>-able JavaScript counterpart.</p>
+
+<h2>Developing component(1) sub-commands</h2>
+
+<p><code>component(1)</code> and sub-commands are structured much like <code>git(1)</code>,
+  in that sub-commands are simply separate executables. For example
+  <code>$ component info pkg</code> and <code>$ component-info pkg</code> are equivalent.</p>
+
+<p>Because of this you'll likely want <code>PATH="./bin:$PATH"</code> in your
+  profile or session while developing component, otherwise <code>./bin/component</code>
+  will have a hard time finding the sub-commands.</p>
+
+<h2>Running tests</h2>
+
+<p>Make sure dependencies are installed:</p>
+
+<pre><code>$ npm install
+</code></pre>
+
+<p>Then run:</p>
+
+<pre><code>$ make test
+</code></pre>
+
+<h2>Shout-outs</h2>
+
+<p>The concept of components themselves are nothing new, Drupal
+  for example has been doing this for years, however it seemed the concept was never
+  really translated to the client. My hope is that other communities will re-implement this
+  simple tool in their language of choice (or use this one) so that we can all consume components
+  easily.</p>
+
+<h2>Contributors</h2>
+
+<ul>
+<li>TJ Holowaychuk</li>
+<li>Guillermo Rauch</li>
+<li>Garrett Johnson</li>
+<li>Amir Abu Shareb</li>
+<li>Adam Sanderson</li>
+<li>Matt Mueller</li>
+<li>Forbes Lindesay</li>
+<li>Arpad Borsos</li>
+<li>Dan Williams</li>
+<li>Damián Suárez</li>
+<li>Tim Oxley</li>
+<li>Jeremy Worboys</li>
+</ul><h2>Example applications</h2>
+
+<p>Open source application examples:</p>
+
+<ul>
+<li><a href="https://github.com/component/todo">Todo list</a></li>
+<li><a href="https://github.com/component/component.io">Component.io</a></li>
+<li><a href="https://github.com/visionmedia/posty">Posty</a></li>
+</ul><h2>Extensions</h2>
+
+<ul>
+<li>
+<a href="https://github.com/component/component-graph">component-graph(1)</a> dependency graphs for component projects</li>
+</ul><h2>License</h2>
+
+<p>(The MIT License)</p>
+
+<p>Copyright (c) 2012 TJ Holowaychuk &lt;<a href="mailto:tj@vision-media.ca">tj@vision-media.ca</a>&gt;</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/timoxley">timoxley</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
